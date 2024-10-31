@@ -7,6 +7,7 @@ let emailsToSend = [];
 
 async function loadEmails() {
   const emails = await Email.find({}, 'email'); // 모든 포스트의 title 필드를 가져옴
+  console.log('emails:', emails);
   emailsToSend = emails.map((email) => email.email); // title 필드만 추출
 }
 
