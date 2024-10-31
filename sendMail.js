@@ -23,18 +23,17 @@ async function sendMail(newPostTitle) {
 
   const mailOptions = {
     from: process.env.MY_EMAIL,
-    to: emailsToSend.join(','),
+    to: emailsToSend,
     subject: '새로운 포스트 알림',
     text: newPostTitle,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('메일 전송 오류 : ', error);
-    } else {
-      console.log('메일 전송 완료 :', info.response);
-    }
-  });
+  try {
+    const info = await transporter.sendMail(mailOptions); // 메일 전송이 완료될 때까지 대기
+    console.log('메일 전송 완료 :', info.response);
+  } catch (error) {
+    console.error('메일 전송 오류 : ', error);
+  }
 }
 
 module.exports = sendMail;
