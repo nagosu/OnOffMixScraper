@@ -101,9 +101,9 @@ async function getNewPosts() {
     }
     console.log('DB에 새로 저장된 포스트 타이틀:', newPostTitles);
 
-    return newPostTitles; // 새로 올라온 포스트가 있으면 제목을 반환
+    return newPostTitles.join('\n'); // 새로 올라온 포스트가 있으면 제목을 반환
   } else {
-    console.log('새로운 포스트가 없습니다.');
+    return '새로운 포스트가 없습니다.'; // 새로운 포스트가 없으면 메시지를 반환
   }
 }
 

@@ -15,7 +15,7 @@ function sendMail(newPostTitle) {
     from: process.env.MY_EMAIL,
     to: 'nozick1021@gmail.com',
     subject: '새로운 포스트 알림',
-    text: newPostTitle.join('\n'),
+    text: newPostTitle,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
