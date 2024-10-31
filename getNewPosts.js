@@ -30,10 +30,16 @@ async function getNewPosts() {
     isLocal
       ? { headless: false } // 로컬
       : {
-          args: chromium.args,
+          args: [
+            ...chromium.args,
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--single-process',
+            '--no-zygote',
+          ],
           executablePath: await chromium.executablePath,
           headless: chromium.headless,
-        } // 서버리스 환경에서는 chrome-aws-lambda 설정 사용
+        }
   );
 
   const page = await browser.newPage(); // 새 페이지 생성
