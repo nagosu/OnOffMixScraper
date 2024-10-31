@@ -18,6 +18,6 @@
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.16",
     "puppeteer": "^23.6.1",
-    "puppeteer-core": "^23.6.1"
+    "puppeteer-core": "^20.9.0"
   }
 }
