@@ -1,5 +1,15 @@
-const puppeteer = require('puppeteer');
 const Post = require('./models/Post');
+
+const isLocal = process.env.IS_LOCAL; // 환경 변수로 로컬 여부를 설정
+let puppeteer;
+let chromium;
+
+if (isLocal) {
+  puppeteer = require('puppeteer'); // 로컬 테스트 시 일반 puppeteer 사용
+} else {
+  puppeteer = require('puppeteer-core');
+  chromium = require('chrome-aws-lambda'); // 서버리스 환경용 chrome-aws-lambda 사용
+}
 
 let lastPostTitles = []; // 마지막으로 확인한 포스트의 제목
 
@@ -15,10 +25,18 @@ async function getNewPosts() {
   // DB에서 마지막 포스트들을 불러옴
   await loadLastPostTitles();
 
-  const browser = await puppeteer.launch({
-    headless: false,
-  });
-  const page = await browser.newPage();
+  // 로컬 환경과 서버리스 환경에 따른 설정 분기
+  const browser = await puppeteer.launch(
+    isLocal
+      ? { headless: false } // 로컬
+      : {
+          args: chromium.args,
+          executablePath: await chromium.executablePath,
+          headless: chromium.headless,
+        } // 서버리스 환경에서는 chrome-aws-lambda 설정 사용
+  );
+
+  const page = await browser.newPage(); // 새 페이지 생성
 
   await page.goto('https://onoffmix.com/event/main/?c=105'); // 페이지 URL
 
