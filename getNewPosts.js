@@ -25,22 +25,25 @@ async function getNewPosts() {
   // DB에서 마지막 포스트들을 불러옴
   await loadLastPostTitles();
 
-  // 로컬 환경과 서버리스 환경에 따른 설정 분기
-  const browser = await puppeteer.launch(
-    isLocal
-      ? { headless: false } // 로컬
-      : {
-          args: [
-            ...chromium.args,
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--single-process',
-            '--no-zygote',
-          ],
-          executablePath: await chromium.executablePath,
-          headless: chromium.headless,
-        }
-  );
+  const executablePath = isLocal
+    ? null // 로컬에서는 puppeteer가 알아서 경로를 찾음
+    : (await chromium.executablePath) ||
+      '/usr/bin/chromium-browser' ||
+      '/opt/bin/chromium';
+
+  const browser = await puppeteer.launch({
+    headless: isLocal ? false : chromium.headless,
+    args: isLocal
+      ? []
+      : [
+          ...chromium.args,
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--single-process',
+          '--no-zygote',
+        ],
+    executablePath: executablePath,
+  });
 
   const page = await browser.newPage(); // 새 페이지 생성
 
