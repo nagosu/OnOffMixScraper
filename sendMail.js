@@ -3,16 +3,12 @@ require('dotenv').config();
 const nodemailer = require('nodemailer');
 const Email = require('./models/Email');
 
-let emails;
-let emailsToSend = [];
-
 async function loadEmails() {
-  emails = await Email.find({}, 'email'); // 모든 포스트의 title 필드를 가져옴
-  console.log('emails:', emails);
-  emailsToSend = emails.map((email) => email.email); // title 필드만 추출
+  const emails = await Email.find({}, 'email'); // 모든 이메일 주소 가져오기
+  return emails.map((email) => email.email); // 이메일 주소만 추출
 }
 
-function sendMail(newPostTitle) {
+async function sendMail(newPostTitle) {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -21,9 +17,8 @@ function sendMail(newPostTitle) {
     },
   });
 
-  loadEmails();
+  const emailsToSend = await loadEmails();
 
-  console.log('emails', emails);
   console.log('emailsToSend:', emailsToSend);
 
   const mailOptions = {
