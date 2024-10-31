@@ -1,6 +1,14 @@
 // sendMail.js
 require('dotenv').config();
 const nodemailer = require('nodemailer');
+const Email = require('./models/Email');
+
+let emailsToSend = [];
+
+async function loadEmails() {
+  const emails = await Email.find({}, 'email'); // 모든 포스트의 title 필드를 가져옴
+  emailsToSend = emails.map((email) => email.email); // title 필드만 추출
+}
 
 function sendMail(newPostTitle) {
   let transporter = nodemailer.createTransport({
@@ -11,9 +19,13 @@ function sendMail(newPostTitle) {
     },
   });
 
+  loadEmails();
+
+  console.log('emailsToSend:', emailsToSend);
+
   const mailOptions = {
     from: process.env.MY_EMAIL,
-    to: 'nozick1021@gmail.com',
+    to: emailsToSend.join(','),
     subject: '새로운 포스트 알림',
     text: newPostTitle,
   };
