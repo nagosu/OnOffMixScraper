@@ -7,8 +7,8 @@ let chromium;
 if (isLocal) {
   puppeteer = require('puppeteer'); // 로컬에서 일반 puppeteer 사용
 } else {
-  puppeteer = require('puppeteer-core');
-  chromium = require('chrome-aws-lambda'); // 서버리스 환경용 chrome-aws-lambda 사용
+  const puppeteer = require('puppeteer-core');
+  const chromium = require('@sparticuz/chromium-min');
 }
 
 let lastPostTitles = []; // 마지막으로 확인한 포스트의 제목
@@ -30,10 +30,12 @@ async function getNewPosts() {
   if (isLocal) {
     browser = await puppeteer.launch({ headless: false });
   } else {
-    browser = await chromium.puppeteer.launch({
+    browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
+      executablePath: await chromium.executablePath(
+        'https://github.com/Sparticuz/chromium/releases/download/v110.0.1/chromium-v110.0.1-pack.tar'
+      ),
       headless: chromium.headless,
       ignoreHTTPSErrors: true,
     });
