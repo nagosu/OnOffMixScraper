@@ -13,9 +13,7 @@ async function loadLastPostTitles() {
 
 async function getNewPosts() {
   // DB에서 마지막 포스트들을 불러옴
-  await loadLastPostTitles().then(() => {
-    console.log('lastPostTitles : ', lastPostTitles);
-  });
+  await loadLastPostTitles();
 
   const browser = await puppeteer.launch({
     headless: false,
