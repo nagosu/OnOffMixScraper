@@ -31,10 +31,11 @@ async function getNewPosts() {
     browser = await puppeteer.launch({ headless: false });
   } else {
     browser = await chromium.puppeteer.launch({
-      executablePath: await chromium.executablePath,
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
       headless: chromium.headless,
+      ignoreHTTPSErrors: true,
     });
   }
 
