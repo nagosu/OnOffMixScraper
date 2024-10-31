@@ -1,15 +1,7 @@
 const Post = require('./models/Post');
 
-const isLocal = process.env.IS_LOCAL; // 환경 변수로 로컬 여부를 설정
-let puppeteer;
-let chromium;
-
-if (isLocal) {
-  puppeteer = require('puppeteer'); // 로컬에서 일반 puppeteer 사용
-} else {
-  puppeteer = require('puppeteer-core');
-  chromium = require('@sparticuz/chromium-min');
-}
+const puppeteer = require('puppeteer-core');
+const chromium = require('@sparticuz/chromium-min');
 
 let lastPostTitles = []; // 마지막으로 확인한 포스트의 제목
 
@@ -25,19 +17,13 @@ async function getNewPosts() {
   // DB에서 마지막 포스트들을 불러옴
   await loadLastPostTitles();
 
-  let browser;
-
-  if (isLocal) {
-    browser = await puppeteer.launch({ headless: false });
-  } else {
-    browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
-      ignoreHTTPSErrors: true,
-    });
-  }
+  const browser = await puppeteer.launch({
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless,
+    ignoreHTTPSErrors: true,
+  });
 
   const page = await browser.newPage(); // 새 페이지 생성
 
