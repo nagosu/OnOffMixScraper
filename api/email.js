@@ -2,6 +2,16 @@ const connectDB = require('../database');
 const Email = require('../models/Email');
 
 export default async function handler(req, res) {
+  // CORS 설정
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    // 사전 요청 (Preflight Request)일 경우, 응답만 보내고 종료
+    return res.status(200).end();
+  }
+
   // 데이터베이스 연결
   await connectDB();
 
