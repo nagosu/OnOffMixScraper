@@ -36,7 +36,7 @@ async function getNewPosts() {
   await page.click('fieldset.filter_category_area');
 
   // 3초 대기
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  // await new Promise((resolve) => setTimeout(resolve, 500));
 
   // 과학/IT/AI 분야 선택
   await page.evaluate(() => {
@@ -45,7 +45,7 @@ async function getNewPosts() {
       .click();
   });
   // 3초 대기
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  // await new Promise((resolve) => setTimeout(resolve, 500));
 
   // 적용 버튼 클릭
   await page.evaluate(() => {
@@ -55,7 +55,7 @@ async function getNewPosts() {
   });
 
   // 3초 대기
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  // await new Promise((resolve) => setTimeout(resolve, 500));
 
   // 최신순 정렬
   await page.click('a.latest');
