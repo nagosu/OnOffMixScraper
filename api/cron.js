@@ -14,5 +14,5 @@ export default async function handler(req, res) {
     await sendMail(newPosts);
   }
 
-  res.status(200).json({ message: '크롤링 성공 및 메일 전송 완료' });
+  res.status(200).json({ message: '크롤링 성공' });
 }
