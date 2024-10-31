@@ -8,7 +8,7 @@ if (isLocal) {
   puppeteer = require('puppeteer'); // 로컬에서 일반 puppeteer 사용
 } else {
   puppeteer = require('puppeteer-core');
-  chromium = require('@sparticuz/chromium');
+  chromium = require('chrome-aws-lambda');
 }
 
 let lastPostTitles = []; // 마지막으로 확인한 포스트의 제목
@@ -32,10 +32,8 @@ async function getNewPosts() {
   } else {
     browser = await puppeteer.launch({
       args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
+      executablePath: await chromium.executablePath,
       headless: chromium.headless,
-      ignoreHTTPSErrors: true,
     });
   }
 
