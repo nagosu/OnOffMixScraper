@@ -9,8 +9,6 @@ export default async function handler(req, res) {
   // 새로운 포스트 가져오기
   const newPosts = await getNewPosts();
 
-  console.log('newPosts', newPosts);
-
   // 새로운 포스트가 있는 경우 메일 전송
   if (newPosts && newPosts.length > 0) {
     await sendMail(newPosts);
