@@ -7,8 +7,8 @@ let chromium;
 if (isLocal) {
   puppeteer = require('puppeteer'); // 로컬에서 일반 puppeteer 사용
 } else {
-  const puppeteer = require('puppeteer-core');
-  const chromium = require('@sparticuz/chromium-min');
+  puppeteer = require('puppeteer-core');
+  chromium = require('@sparticuz/chromium-min');
 }
 
 let lastPostTitles = []; // 마지막으로 확인한 포스트의 제목
