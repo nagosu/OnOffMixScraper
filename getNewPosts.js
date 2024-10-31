@@ -5,7 +5,7 @@ let puppeteer;
 let chromium;
 
 if (isLocal) {
-  puppeteer = require('puppeteer'); // 로컬 테스트 시 일반 puppeteer 사용
+  puppeteer = require('puppeteer'); // 로컬에서 일반 puppeteer 사용
 } else {
   puppeteer = require('puppeteer-core');
   chromium = require('chrome-aws-lambda'); // 서버리스 환경용 chrome-aws-lambda 사용
@@ -25,25 +25,18 @@ async function getNewPosts() {
   // DB에서 마지막 포스트들을 불러옴
   await loadLastPostTitles();
 
-  const executablePath = isLocal
-    ? null // 로컬에서는 puppeteer가 알아서 경로를 찾음
-    : (await chromium.executablePath) ||
-      '/usr/bin/chromium-browser' ||
-      '/opt/bin/chromium';
+  let browser;
 
-  const browser = await puppeteer.launch({
-    headless: isLocal ? false : chromium.headless,
-    args: isLocal
-      ? []
-      : [
-          ...chromium.args,
-          '--no-sandbox',
-          '--disable-setuid-sandbox',
-          '--single-process',
-          '--no-zygote',
-        ],
-    executablePath: executablePath,
-  });
+  if (isLocal) {
+    browser = await puppeteer.launch({ headless: false });
+  } else {
+    browser = await chromium.puppeteer.launch({
+      executablePath: await chromium.executablePath,
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      headless: chromium.headless,
+    });
+  }
 
   const page = await browser.newPage(); // 새 페이지 생성
 
