@@ -1,7 +1,7 @@
 const Post = require('./models/Post');
 
 const puppeteer = require('puppeteer-core');
-const chromium = require('@sparticuz/chromium-min');
+const chromium = require('@sparticuz/chromium');
 
 let lastPostTitles = []; // 마지막으로 확인한 포스트의 제목
 
