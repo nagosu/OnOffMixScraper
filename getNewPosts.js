@@ -8,7 +8,7 @@ if (isLocal) {
   puppeteer = require('puppeteer'); // 로컬에서 일반 puppeteer 사용
 } else {
   puppeteer = require('puppeteer-core');
-  chromium = require('@sparticuz/chromium-min');
+  chromium = require('@sparticuz/chromium');
 }
 
 let lastPostTitles = []; // 마지막으로 확인한 포스트의 제목
@@ -34,7 +34,7 @@ async function getNewPosts() {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(
-        'https://github.com/Sparticuz/chromium/releases/download/v110.0.1/chromium-v110.0.1-pack.tar'
+        'https://github.com/Sparticuz/chromium/releases/download/v130.0.0/chromium-v130.0.0-pack.tar'
       ),
       headless: chromium.headless,
       ignoreHTTPSErrors: true,
