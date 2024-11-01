@@ -2,7 +2,7 @@ name: Daily Cron Job
 
 on:
   schedule:
-    - cron: '0 0 * * *' # 매일 자정(UTC) 실행
+    - cron: '* * * * *' # 매일 자정(UTC) 실행
 
 jobs:
   call-vercel-endpoint:
