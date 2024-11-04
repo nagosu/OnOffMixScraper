@@ -23,7 +23,8 @@ async function sendMail(newPostTitle) {
 
   const mailOptions = {
     from: process.env.MY_EMAIL,
-    to: emailsToSend,
+    to: '',
+    bcc: emailsToSend, // 숨은 참조
     subject: '새로운 포스트 알림',
     text: newPostTitle,
   };
