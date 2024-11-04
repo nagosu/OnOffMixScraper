@@ -17,6 +17,8 @@ async function getNewPosts() {
   // DB에서 마지막 포스트들을 불러옴
   await loadLastPostTitles();
 
+  console.log('lastPostTitles:', lastPostTitles);
+
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
@@ -90,7 +92,9 @@ async function getNewPosts() {
   });
 
   // 새로운 포스트 타이틀 필터링
-  newPostTitles = titles.filter((title) => !lastPostTitles.includes(title));
+  newPostTitles = titles.filter(
+    (title) => !lastPostTitles.includes(title.split('\n')[0])
+  );
 
   await browser.close();
 
