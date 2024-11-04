@@ -22,7 +22,7 @@ async function sendMail(newPostTitle) {
   console.log('emailsToSend:', emailsToSend);
 
   const mailOptions = {
-    from: nagosu,
+    from: 'nagosu',
     to: '',
     bcc: emailsToSend, // 숨은 참조
     subject: '새로운 포스트 알림',
