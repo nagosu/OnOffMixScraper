@@ -97,7 +97,13 @@ async function getNewPosts() {
   // 새로운 타이틀만 DB에 저장
   if (newPostTitles.length > 0) {
     for (const title of newPostTitles) {
-      await Post.create({ title });
+      const joinedTitle = title.split('\n')[0];
+      const joinedLink = title.split('\n')[1];
+      const newPost = new Post({
+        title: joinedTitle,
+        link: joinedLink,
+      });
+      await newPost.save();
     }
     console.log('DB에 새로 저장된 포스트 타이틀:', newPostTitles);
 
