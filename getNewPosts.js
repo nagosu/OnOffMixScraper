@@ -97,9 +97,8 @@ async function getNewPosts() {
   );
 
   // 기존 타이틀 중 새로운 데이터에 없는 항목 삭제
-  const titlesToKeep = newPostTitles.map((title) => title.split('\n')[0]);
   const titlesToDelete = lastPostTitles.filter(
-    (title) => !titlesToKeep.includes(title)
+    (title) => !titles.map((t) => t.split('\n')[0]).includes(title)
   );
 
   if (titlesToDelete.length > 0) {
