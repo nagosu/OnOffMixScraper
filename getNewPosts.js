@@ -96,6 +96,17 @@ async function getNewPosts() {
     (title) => !lastPostTitles.includes(title.split('\n')[0])
   );
 
+  // 기존 타이틀 중 새로운 데이터에 없는 항목 삭제
+  const titlesToKeep = newPostTitles.map((title) => title.split('\n')[0]);
+  const titlesToDelete = lastPostTitles.filter(
+    (title) => !titlesToKeep.includes(title)
+  );
+
+  if (titlesToDelete.length > 0) {
+    await Post.deleteMany({ title: { $in: titlesToDelete } });
+    console.log('삭제된 포스트 타이틀:', titlesToDelete);
+  }
+
   await browser.close();
 
   // 새로운 타이틀만 DB에 저장
