@@ -5,4 +5,4 @@ const emailSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Email', emailSchema, 'emails');
+module.exports = mongoose.model('Email', emailSchema, 'users');
