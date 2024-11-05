@@ -3,12 +3,12 @@ const app = express();
 const PORT = 8000;
 
 const connectDB = require('./database');
-const getNewPosts = require('./getNewPosts');
+const getOnOffMixPosts = require('./getOnOffMixPosts');
 const sendMail = require('./sendMail');
 
 connectDB();
 
-const newPosts = getNewPosts();
+const newPosts = getOnOffMixPosts();
 
 if (newPosts && newPosts.length > 0) {
   sendMail(newPosts);

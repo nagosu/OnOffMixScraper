@@ -1,4 +1,4 @@
-const connectDB = require('../database');
+const connectDB = require('../database/database');
 const Email = require('../models/Email');
 
 export default async function handler(req, res) {
@@ -15,6 +15,7 @@ export default async function handler(req, res) {
   // 데이터베이스 연결
   await connectDB();
 
+  // @POST("/api/email")
   if (req.method === 'POST') {
     const { email } = req.body;
 

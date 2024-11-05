@@ -1,4 +1,4 @@
-const Post = require('./models/Post');
+const Post = require('../../models/Post');
 
 const puppeteer = require('puppeteer-core');
 const chromium = require('@sparticuz/chromium');
@@ -13,7 +13,7 @@ async function loadLastPostTitles() {
   lastPostTitles = posts.map((post) => post.title); // title 필드만 추출
 }
 
-async function getNewPosts() {
+async function getOnOffMixPosts() {
   // DB에서 마지막 포스트들을 불러옴
   await loadLastPostTitles();
 
@@ -37,17 +37,12 @@ async function getNewPosts() {
   // 주제 드롭다운 열기
   await page.click('fieldset.filter_category_area');
 
-  // 3초 대기
-  // await new Promise((resolve) => setTimeout(resolve, 500));
-
   // 과학/IT/AI 분야 선택
   await page.evaluate(() => {
     document
       .querySelector('fieldset.filter_category_area li:nth-of-type(3) input')
       .click();
   });
-  // 3초 대기
-  // await new Promise((resolve) => setTimeout(resolve, 500));
 
   // 적용 버튼 클릭
   await page.evaluate(() => {
@@ -56,13 +51,10 @@ async function getNewPosts() {
       .click();
   });
 
-  // 3초 대기
-  // await new Promise((resolve) => setTimeout(resolve, 500));
-
   // 최신순 정렬
   await page.click('a.latest');
 
-  // 3초 대기
+  // 1초 대기
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   // 포스트 로딩 대기
@@ -127,4 +119,4 @@ async function getNewPosts() {
   }
 }
 
-module.exports = getNewPosts;
+module.exports = getOnOffMixPosts;

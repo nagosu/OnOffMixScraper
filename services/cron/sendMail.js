@@ -1,7 +1,7 @@
 // sendMail.js
 require('dotenv').config();
 const nodemailer = require('nodemailer');
-const Email = require('./models/Email');
+const Email = require('../../models/Email');
 
 async function loadEmails() {
   const emails = await Email.find({}, 'email'); // 모든 이메일 주소 가져오기
