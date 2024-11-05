@@ -1,7 +1,5 @@
 const Post = require('../../models/Post');
 
-const puppeteer = require('puppeteer-core');
-const chromium = require('@sparticuz/chromium');
 const onOffMixScrape = require('../../scrapes/onOffMix');
 
 let lastPostTitles = []; // 마지막으로 확인한 포스트의 제목
@@ -18,7 +16,7 @@ async function getOnOffMixPosts() {
 
   console.log('lastPostTitles:', lastPostTitles);
 
-  const { newPostTitles, titlesToDelete } = await onOffMixScrape(
+  const { browser, newPostTitles, titlesToDelete } = await onOffMixScrape(
     lastPostTitles
   ); // OnOffMix 스크래핑 후 새로운 포스트와 삭제할 포스트의 제목을 가져옴
 
@@ -28,7 +26,7 @@ async function getOnOffMixPosts() {
     console.log('삭제된 포스트 타이틀:', titlesToDelete);
   }
 
-  await browser.close();
+  await browser.close(); // 브라우저 닫기
 
   // 새로운 포스트만 DB에 저장
   if (newPostTitles.length > 0) {

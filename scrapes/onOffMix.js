@@ -76,7 +76,7 @@ async function onOffMixScrape(lastPostTitles) {
     (title) => !titles.map((t) => t.split('\n')[0]).includes(title)
   );
 
-  return { newPostTitles, titlesToDelete };
+  return { browser, newPostTitles, titlesToDelete };
 }
 
 module.exports = onOffMixScrape;
