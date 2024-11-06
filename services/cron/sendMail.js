@@ -19,8 +19,6 @@ async function sendMail(newPostTitle) {
 
   const emailsToSend = await loadEmails();
 
-  console.log('emailsToSend:', emailsToSend);
-
   const mailOptions = {
     from: `nagosu <${process.env.MY_EMAIL}>`,
     to: '',
