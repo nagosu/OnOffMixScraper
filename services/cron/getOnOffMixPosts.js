@@ -4,7 +4,7 @@ const onOffMixScrape = require('../../scrapes/onOffMix');
 
 let lastPostTitles = []; // 마지막으로 확인한 포스트의 제목
 
-// DB에서 latest 컬렉션의 모든 타이틀을 배열로 가져오는 함수
+// DB에서 onoffmix 컬렉션의 모든 타이틀을 배열로 가져오는 함수
 async function loadLastPostTitles() {
   const posts = await OnOffMixPost.find({}, 'title'); // 모든 포스트의 title 필드를 가져옴
   lastPostTitles = posts.map((post) => post.title); // title 필드만 추출
@@ -33,7 +33,7 @@ async function getOnOffMixPosts() {
     for (const title of newPostTitles) {
       const joinedTitle = title.split('\n')[0];
       const joinedLink = title.split('\n')[1];
-      const newPost = new Post({
+      const newPost = new OnOffMixPost({
         title: joinedTitle,
         link: joinedLink,
       });

@@ -50,3 +50,5 @@ async function linkareerScrape(lastPostTitles) {
 
   return { browser, newPostTitles, titlesToDelete };
 }
+
+module.exports = linkareerScrape;
