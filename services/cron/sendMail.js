@@ -25,11 +25,11 @@ async function sendMail(newOnOffMixPosts, newLinkareerPosts) {
     bcc: emailsToSend, // 숨은 참조
     subject: '새로운 포스트 알림',
     html: `
-      <p><strong>OnOffMix</strong></p>
-      <p>${newOnOffMixPosts}</p>
+      <p style={{ fontSize: "30px" }}><strong>OnOffMix</strong></p>
+      <p>${newOnOffMixPosts.split('\n').join('<br>')}</p>
       <br>
-      <p><strong>Linkareer</strong></p>
-      <p>${newLinkareerPosts}</p>
+      <p style={{ fontSize: "30px" }}><strong>Linkareer</strong></p>
+      <p>${newLinkareerPosts.split('\n').join('<br>')}</p>
   `,
   };
 
