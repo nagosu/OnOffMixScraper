@@ -8,7 +8,7 @@ async function loadEmails() {
   return emails.map((email) => email.email); // 이메일 주소만 추출
 }
 
-async function sendMail(newPostTitle) {
+async function sendMail(newOnOffMixPosts, newLinkareerPosts) {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -24,7 +24,8 @@ async function sendMail(newPostTitle) {
     to: '',
     bcc: emailsToSend, // 숨은 참조
     subject: '새로운 포스트 알림',
-    text: newPostTitle,
+    text:
+      'OnOffMix\n' + newOnOffMixPosts + '\n\nLinkareer\n' + newLinkareerPosts,
   };
 
   try {
