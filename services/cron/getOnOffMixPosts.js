@@ -1,4 +1,4 @@
-const Post = require('../../models/Post');
+const OnOffMixPost = require('../../models/OnOffMixPost');
 
 const onOffMixScrape = require('../../scrapes/onOffMix');
 
@@ -6,7 +6,7 @@ let lastPostTitles = []; // 마지막으로 확인한 포스트의 제목
 
 // DB에서 latest 컬렉션의 모든 타이틀을 배열로 가져오는 함수
 async function loadLastPostTitles() {
-  const posts = await Post.find({}, 'title'); // 모든 포스트의 title 필드를 가져옴
+  const posts = await OnOffMixPost.find({}, 'title'); // 모든 포스트의 title 필드를 가져옴
   lastPostTitles = posts.map((post) => post.title); // title 필드만 추출
 }
 
@@ -22,7 +22,7 @@ async function getOnOffMixPosts() {
 
   // 삭제할 포스트가 있으면 DB에서 삭제
   if (titlesToDelete.length > 0) {
-    await Post.deleteMany({ title: { $in: titlesToDelete } });
+    await OnOffMixPost.deleteMany({ title: { $in: titlesToDelete } });
     console.log('삭제된 포스트 타이틀:', titlesToDelete);
   }
 
