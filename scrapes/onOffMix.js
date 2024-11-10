@@ -62,7 +62,7 @@ async function onOffMixScrape(lastPostTitles) {
         (titleElement) =>
           `${titleElement.innerText.trim()}\nhttps://onoffmix.com/${titleElement
             .closest('a')
-            ?.getAttribute('href')}\n\n`
+            ?.getAttribute('href')}\n`
       );
   });
 

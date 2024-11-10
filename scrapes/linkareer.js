@@ -34,7 +34,7 @@ async function linkareerScrape(lastPostTitles) {
       (titleElement) =>
         `${titleElement.innerText.trim()}\nhttps://linkareer.com/${titleElement
           .closest('a')
-          ?.getAttribute('href')}`
+          ?.getAttribute('href')}\n`
     );
   });
 
