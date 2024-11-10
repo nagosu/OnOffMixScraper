@@ -25,7 +25,7 @@ async function sendMail(newOnOffMixPosts, newLinkareerPosts) {
     bcc: emailsToSend, // 숨은 참조
     subject: '새로운 포스트 알림',
     html: `
-      <img src="https://i.ibb.co/mbd2731/logo.png" alt="nagosu" style="width: auto; height: 40px;">
+      <img src="https://i.ibb.co/2dsB2B4/logo.png" alt="nagosu" style="width: auto; height: 40px;">
       <br>
       <p style="font-size: 26px; font-weight: bold;"><strong>새로운 포스트 알림</strong></p>
       <p style="font-size: 20px; font-weight: bold;"><strong>OnOffMix</strong></p>
