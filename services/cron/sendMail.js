@@ -25,17 +25,14 @@ async function sendMail(newOnOffMixPosts, newLinkareerPosts) {
     bcc: emailsToSend, // 숨은 참조
     subject: '새로운 포스트 알림',
     html: `
-      <body style="background-color: #ffffff; color: #000000;">
-        <img src="../../assets/png/logo.png" alt="nagosu" style="width: auto; height: 40px;">
-        <br>
-        <p style="font-size: 26px; font-weight: bold;"><strong>새로운 포스트 알림</strong></p>
-        <br>
-        <p style="font-size: 20px; font-weight: bold;"><strong>OnOffMix</strong></p>
-        <p>${newOnOffMixPosts.split('\n').join('<br>')}</p>
-        <br>
-        <p style="font-size: 20px; font-weight: bold;"><strong>Linkareer</strong></p>
-        <p>${newLinkareerPosts.split('\n').join('<br>')}</p>
-      </body>
+      <img src="https://i.ibb.co/mbd2731/logo.png" alt="nagosu" style="width: auto; height: 40px;">
+      <br>
+      <p style="font-size: 26px; font-weight: bold;"><strong>새로운 포스트 알림</strong></p>
+      <p style="font-size: 20px; font-weight: bold;"><strong>OnOffMix</strong></p>
+      <p>${newOnOffMixPosts.split('\n').join('<br>')}</p>
+      <br>
+      <p style="font-size: 20px; font-weight: bold;"><strong>Linkareer</strong></p>
+      <p>${newLinkareerPosts.split('\n').join('<br>')}</p>
   `,
   };
 
